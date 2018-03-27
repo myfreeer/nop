@@ -1,11 +1,6 @@
 #include <windows.h>
 
-int WinMain(
-        HINSTANCE hInstance,
-        HINSTANCE hPrevInstance,
-        LPSTR lpCmdLine,
-        int nCmdShow
-        )
-{
-        return 0;
+int __cdecl WinMainCRTStartup() {
+  ExitProcess(0);
+  return 0;
 }

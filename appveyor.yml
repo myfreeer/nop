@@ -1,0 +1,25 @@
+version: 0.2-{build}
+build_script:
+- cmd: >-
+    set MSYSTEM=MINGW64
+
+    C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec make"
+
+    move /Y nop.exe nop_x64.exe
+
+    set MSYSTEM=MINGW32
+
+    C:\msys64\usr\bin\bash -lc "cd \"$APPVEYOR_BUILD_FOLDER\" && exec make"
+
+    move /Y nop.exe nop_x86.exe
+test_script:
+- cmd: >-
+    start /wait nop_x64.exe
+
+    start /wait nop_x86.exe
+artifacts:
+- path: nop_x64.exe
+- path: nop_x86.exe
+on_failure:
+- appveyor PushArtifact nop_x64.exe
+- appveyor PushArtifact nop_x86.exe
